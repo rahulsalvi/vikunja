@@ -1,0 +1,4 @@
+.env
+ts_authkey.txt
+db/
+files/
