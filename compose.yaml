@@ -42,6 +42,7 @@ services:
       VIKUNJA_DATABASE_TYPE: sqlite
       VIKUNJA_DATABSE_PATH: /db/vikunja.db
       VIKUNJA_SERVICE_INTERFACE: 127.0.0.1:3456
+      VIKUNJA_CORS_ENABLE: true
     volumes:
       - ./files:/app/vikunja/files
       - ./db:/db
