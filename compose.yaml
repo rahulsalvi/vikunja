@@ -1,63 +1,25 @@
 name: vikunja
+
+include:
+  - path:
+      - ext/docker-compose-snippets/caddy.yaml
+      - ext/docker-compose-snippets/reverse_proxy_override.yaml
+
 services:
-  tailscale:
-    image: tailscale/tailscale:latest
-    environment:
-      - TS_AUTHKEY=file:/run/secrets/ts_authkey
-      - TS_HOSTNAME=vikunja
-      - TS_STATE_DIR=/var/lib/tailscale
-      - TS_USERSPACE=false
-      - TS_ACCEPT_DNS=true
-    volumes:
-      - ts_state:/var/lib/tailscale
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    cap_add:
-      - NET_ADMIN
-    secrets:
-      - ts_authkey
-    healthcheck:
-      test: [ "CMD-SHELL", "tailscale status" ]
-      interval: 10s
-      timeout: 5s
-      retries: 60
-    restart: unless-stopped
-  caddy:
-    image: ghcr.io/rahulsalvi/caddy:latest
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
-      - ./Caddyfile:/etc/caddy/sites_enabled/Caddyfile:ro
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      tailscale:
-        condition: service_healthy
-    network_mode: service:tailscale
-    restart: unless-stopped
   vikunja:
     image: vikunja/vikunja
+    hostname: proxy_target
     environment:
       VIKUNJA_SERVICE_PUBLICURL: https://vikunja.ipn.rahulsalvi.com
       VIKUNJA_DATABASE_TYPE: sqlite
       VIKUNJA_DATABSE_PATH: /db/vikunja.db
-      VIKUNJA_SERVICE_INTERFACE: 127.0.0.1:3456
+      VIKUNJA_SERVICE_INTERFACE: :8080
       VIKUNJA_CORS_ENABLE: true
     volumes:
       - ./files:/app/vikunja/files
       - ./db:/db
-    depends_on:
-      tailscale:
-        condition: service_healthy
-    network_mode: service:tailscale
     restart: unless-stopped
+
 secrets:
   ts_authkey:
     file: ./ts_authkey.txt
-volumes:
-  ts_state:
-  caddy_data:
-  caddy_config:
-networks:
-  default:
-    enable_ipv6: true
