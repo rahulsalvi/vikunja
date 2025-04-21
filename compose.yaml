@@ -15,6 +15,9 @@ services:
       VIKUNJA_DATABSE_PATH: /db/vikunja.db
       VIKUNJA_SERVICE_INTERFACE: :8080
       VIKUNJA_CORS_ENABLE: true
+      VIKUNJA_SERVICE_JWTSECRET_FILE: /run/secrets/jwt_secret
+    secrets:
+      - jwt_secret
     volumes:
       - ./files:/app/vikunja/files
       - ./db:/db
@@ -23,3 +26,5 @@ services:
 secrets:
   ts_authkey:
     file: ./ts_authkey.txt
+  jwt_secret:
+    file: ./jwt_secret.txt
