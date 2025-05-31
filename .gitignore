@@ -1,4 +1,5 @@
 .env
 ts_authkey.txt
+jwt_secret.txt
 db/
 files/
