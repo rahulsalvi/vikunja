@@ -1,19 +1,18 @@
+# vim: ft=yaml.docker-compose
 name: vikunja
 
 include:
-  - path:
-      - ext/docker-compose-snippets/caddy.yaml
-      - ext/docker-compose-snippets/reverse_proxy_override.yaml
+  - ext/docker-compose-snippets/tailscale-caddy.yaml
+  - ext/docker-compose-snippets/simple-reverse-proxy.yaml
 
 services:
   vikunja:
-    image: vikunja/vikunja
-    hostname: proxy_target
+    image: ghcr.io/rahulsalvi/vikunja:latest
     environment:
       VIKUNJA_SERVICE_PUBLICURL: https://vikunja.ipn.rahulsalvi.com
       VIKUNJA_DATABASE_TYPE: sqlite
       VIKUNJA_DATABSE_PATH: /db/vikunja.db
-      VIKUNJA_SERVICE_INTERFACE: :8080
+      VIKUNJA_SERVICE_INTERFACE: 127.0.0.1:8080
       VIKUNJA_CORS_ENABLE: true
       VIKUNJA_SERVICE_JWTSECRET_FILE: /run/secrets/jwt_secret
     secrets:
@@ -22,6 +21,9 @@ services:
       - ./files:/app/vikunja/files
       - ./db:/db
     restart: unless-stopped
+    extends:
+      file: ext/docker-compose-snippets/tailscale-app-base.yaml
+      service: tailscale-app-base
 
 secrets:
   ts_authkey:
