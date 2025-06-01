@@ -1,5 +1,7 @@
 .env
 ts_authkey.txt
 jwt_secret.txt
+oidc_client_id.txt
+oidc_client_secret.txt
 db/
 files/
