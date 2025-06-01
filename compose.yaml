@@ -18,6 +18,7 @@ services:
     secrets:
       - jwt_secret
     volumes:
+      - ./config.yml:/etc/vikunja/config.yml:ro
       - ./files:/app/vikunja/files
       - ./db:/db
     restart: unless-stopped
@@ -30,3 +31,7 @@ secrets:
     file: ./ts_authkey.txt
   jwt_secret:
     file: ./jwt_secret.txt
+  oidc_client_id:
+    file: ./oidc_client_id.txt
+  oidc_client_secret:
+    file: ./oidc_client_secret.txt
