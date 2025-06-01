@@ -17,6 +17,8 @@ services:
       VIKUNJA_SERVICE_JWTSECRET_FILE: /run/secrets/jwt_secret
     secrets:
       - jwt_secret
+      - oidc_client_id
+      - oidc_client_secret
     volumes:
       - ./config.yml:/etc/vikunja/config.yml:ro
       - ./files:/app/vikunja/files
