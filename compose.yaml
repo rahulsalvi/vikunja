@@ -15,6 +15,7 @@ services:
       VIKUNJA_SERVICE_INTERFACE: 127.0.0.1:8080
       VIKUNJA_CORS_ENABLE: true
       VIKUNJA_SERVICE_JWTSECRET_FILE: /run/secrets/jwt_secret
+      VIKUNJA_LOG_LEVEL: debug
     secrets:
       - jwt_secret
       - oidc_client_id
