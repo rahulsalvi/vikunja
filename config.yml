@@ -3,8 +3,7 @@ auth:
     enabled: true
     redirecturl: https://vikunja.ipn.rahulsalvi.com/auth/openid/
     providers:
-      pocketid:
-        name: Pocket-ID
+      - name: Pocket-ID
         authurl: https://pocket-id.ipn.rahulsalvi.com
         clientid:
         clientsecret:
