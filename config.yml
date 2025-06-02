@@ -7,6 +7,4 @@ auth:
         name: Pocket-ID
         authurl: https://pocket-id.ipn.rahulsalvi.com
         clientid:
-          file: /run/secrets/oidc_client_id
         clientsecret:
-          file: /run/secrets/oidc_client_secret
