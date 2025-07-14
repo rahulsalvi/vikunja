@@ -29,6 +29,25 @@ services:
       file: ext/docker-compose-snippets/tailscale-app-base.yaml
       service: tailscale-app-base
 
+  backup:
+    image: offen/docker-volume-backup:latest
+    environment:
+      BACKUP_CRON_EXPRESSION: "*/15 * * * *"
+      AWS_S3_BUCKET_NAME_FILE: /run/secrets/aws_s3_bucket_name
+      AWS_S3_PATH: ${COMPOSE_PROJECT_NAME}
+      AWS_ACCESS_KEY_ID_FILE: /run/secrets/aws_access_key_id
+      AWS_SECRET_ACCESS_KEY_FILE: /run/secrets/aws_secret_access_key
+      AGE_PASSPHRASE_FILE: /run/secrets/age_passphrase
+    secrets:
+      - aws_s3_bucket_name
+      - aws_access_key_id
+      - aws_secret_access_key
+      - age_passphrase
+    restart: unless-stopped
+    volumes:
+      - ./files:/backup/files:ro
+      - ./db:/backup/db:ro
+
 secrets:
   ts_authkey:
     file: ./ts_authkey.txt
@@ -38,3 +57,11 @@ secrets:
     file: ./oidc_client_id.txt
   oidc_client_secret:
     file: ./oidc_client_secret.txt
+  aws_s3_bucket_name:
+    file: ./aws_s3_bucket_name.txt
+  aws_access_key_id:
+    file: ./aws_access_key_id.txt
+  aws_secret_access_key:
+    file: ./aws_secret_access_key.txt
+  age_passphrase:
+    file: ./age_passphrase.txt
