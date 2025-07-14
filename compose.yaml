@@ -32,7 +32,7 @@ services:
   backup:
     image: offen/docker-volume-backup:latest
     environment:
-      BACKUP_CRON_EXPRESSION: "*/15 * * * *"
+      BACKUP_CRON_EXPRESSION: "@daily"
       AWS_S3_BUCKET_NAME_FILE: /run/secrets/aws_s3_bucket_name
       AWS_S3_PATH: ${COMPOSE_PROJECT_NAME}
       AWS_ACCESS_KEY_ID_FILE: /run/secrets/aws_access_key_id
