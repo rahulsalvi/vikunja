@@ -3,6 +3,10 @@ ts_authkey.txt
 jwt_secret.txt
 oidc_client_id.txt
 oidc_client_secret.txt
+aws_s3_bucket_name.txt
+aws_access_key_id.txt
+aws_secret_access_key.txt
+age_passphrase.txt
 config.yml
 db/
 files/
