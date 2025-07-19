@@ -37,8 +37,6 @@ services:
       service: aws-backup-default
 
 secrets:
-  ts_authkey:
-    file: ./ts_authkey.txt
   oidc_client_id:
     file: secrets/oidc_client_id.txt
   oidc_client_secret:
