@@ -38,6 +38,6 @@ services:
 
 secrets:
   oidc_client_id:
-    file: secrets/oidc_client_id.txt
+    file: secrets/oidc_client_id
   oidc_client_secret:
-    file: secrets/oidc_client_secret.txt
+    file: secrets/oidc_client_secret
