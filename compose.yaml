@@ -40,6 +40,6 @@ secrets:
   ts_authkey:
     file: ./ts_authkey.txt
   oidc_client_id:
-    file: ./oidc_client_id.txt
+    file: secrets/oidc_client_id.txt
   oidc_client_secret:
-    file: ./oidc_client_secret.txt
+    file: secrets/oidc_client_secret.txt
