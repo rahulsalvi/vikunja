@@ -4,7 +4,7 @@ name: vikunja
 include:
   - ext/docker-compose-snippets/tailscale-caddy.yaml
   - ext/docker-compose-snippets/simple-reverse-proxy.yaml
-  - ext/docker-compose-snippets/volume-backup-defaults.yaml
+  - ext/docker-compose-snippets/volume-backup-schedules.yaml
 
 services:
   vikunja:
@@ -34,7 +34,7 @@ services:
       - ./db:/backup/db:ro
     extends:
       file: ext/docker-compose-snippets/volume-backup.yaml
-      service: aws-backup-default
+      service: aws-backup-frequent
 
 secrets:
   oidc_client_id:
